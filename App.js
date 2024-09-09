@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { StyleSheet, Button, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Main } from "./components/Main";
+import { useState } from "react";
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -20,13 +20,7 @@ export default function App() {
         ]}
       >
         <StatusBar style="auto" />
-        <Text
-          style={[styles.text, { color: isDarkMode ? "#ffffff" : "#212121" }]}
-        >
-          {isDarkMode ? "Modo Oscuro Activado" : "Modo Claro Activado"}
-        </Text>
-        <Button title="Toggle Dark Mode" onPress={toggleDarkMode} />
-        <Main isDarkMode={isDarkMode} />
+        <Main isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       </View>
     </SafeAreaProvider>
   );
