@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Button, ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { NewCarousel } from "./Carousel";
 
 export function Main({ isDarkMode, toggleDarkMode }) {
   return (
@@ -14,7 +13,7 @@ export function Main({ isDarkMode, toggleDarkMode }) {
             padding: 12,
           }}
         >
-          <Button title="Dark Mode" onPress={toggleDarkMode} />
+          <Button  title="Dark Mode" onPress={toggleDarkMode} />
           <Text
             style={[
               { color: isDarkMode ? "#ffffff" : "#212121", marginTop: 10 },
@@ -22,7 +21,6 @@ export function Main({ isDarkMode, toggleDarkMode }) {
           >
             {isDarkMode ? "Modo Oscuro Activado" : "Modo Claro Activado"}
           </Text>
-          <NewCarousel />
         </ScrollView>
       </SafeAreaView>
     </>
