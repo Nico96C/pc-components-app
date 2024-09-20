@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { useRef } from "react";
 import { Button, ScrollView, Text, Dimensions, Image, View, StyleSheet } from "react-native";
+import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 import { Body } from "./Body";
@@ -40,7 +41,9 @@ export function Main({ isDarkMode, toggleDarkMode }) {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={[
+              { flex: 1, backgroundColor: "#212121"},
+            ]}>
         <ScrollView
           contentContainerStyle={{
             justifyContent: "flex-start",
@@ -49,12 +52,15 @@ export function Main({ isDarkMode, toggleDarkMode }) {
           }}
         >
           <Button title="Dark Mode" onPress={toggleDarkMode} />
+
+          <Link href="/procesors" style={styles.link}>IR A PROCESADORES</Link>
+
           <Text
             style={[
-              { color: isDarkMode ? "#ffffff" : "#212121", marginTop: 10 },
+              { color: "#ffffff", marginTop: 10 },
             ]}
           >
-            {isDarkMode ? "Modo Oscuro Activado" : "Modo Claro Activado"}
+            PC - COMPONENTES
           </Text>
           <MyCarousel data={dummyData} />
           <Body isDarkMode={isDarkMode} />
@@ -77,4 +83,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     resizeMode: "cover",
   },
+  link: {
+    color: "blue",
+    fontSize: 16,
+  }
 });

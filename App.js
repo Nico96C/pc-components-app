@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   card: {
-    backgroundColor: "#764ABC",
+    backgroundColor: "#212121",
     borderRadius: 10,
     padding: 20,
     justifyContent: "center",
