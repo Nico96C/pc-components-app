@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { useRef } from "react";
-import { Button, ScrollView, Text, Dimensions, Image, View, StyleSheet } from "react-native";
+import { ScrollView, Text, Dimensions, Image, View, StyleSheet, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 import { Body } from "./Body";
+import { useTheme } from "../context/darkmode";
 const { width: screenWidth } = Dimensions.get("window");
 
-export function Main({ isDarkMode, toggleDarkMode }) {
+export function Main() {
   const carouselRef = useRef(null);
   const activeIndex = useRef(0);
 
@@ -17,6 +18,9 @@ export function Main({ isDarkMode, toggleDarkMode }) {
     { id: 3, image: require("../assets/img/Placas.webp") },
     { id: 4, image: require("../assets/img/Razer.webp") },
   ];
+  const { isDarkMode, toggleDarkMode } = useTheme();
+
+  console.log('isDarkMode in Main:', isDarkMode);
 
   const MyCarousel = ({ data }) => {
     const renderItem = ({ item }) => (
@@ -42,8 +46,8 @@ export function Main({ isDarkMode, toggleDarkMode }) {
   return (
     <>
       <SafeAreaView style={[
-              { flex: 1, backgroundColor: "#212121"},
-            ]}>
+        { flex: 1, backgroundColor: isDarkMode ? "#212121" : "#ffffff" },
+      ]}>
         <ScrollView
           contentContainerStyle={{
             justifyContent: "flex-start",
@@ -51,17 +55,32 @@ export function Main({ isDarkMode, toggleDarkMode }) {
             padding: 12,
           }}
         >
-          <Button title="Dark Mode" onPress={toggleDarkMode} />
+          <Pressable
+            onPress={toggleDarkMode}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? '#666' : isDarkMode ? '#444' : '#ddd',
+                padding: 10,
+                borderRadius: 5,
+                marginBottom: 20,
+              }
+            ]}
+          >
+            <Text style={{ color: isDarkMode ? "#ffffff" : "#000000" }}>
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
+            </Text>
+          </Pressable>
 
           <Link href="/procesors" style={styles.link}>IR A PROCESADORES</Link>
 
           <Text
             style={[
-              { color: "#ffffff", marginTop: 10 },
+              { color: isDarkMode ? "#ffffff" : "#000000", marginTop: 10 },
             ]}
           >
             PC - COMPONENTES
           </Text>
+
           <MyCarousel data={dummyData} />
           <Body isDarkMode={isDarkMode} />
         </ScrollView>
