@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Link } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { Text, StyleSheet, View, FlatList, Image } from "react-native";
 import procesorsData from "../mocks/Procesors.json";
+import { useTheme } from "../context/darkmode";
 
 export default function Procesor() {
   const { Procesadores } = procesorsData;
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   const images = {
     16: require("../img/Category2/1.png"),
@@ -25,7 +27,17 @@ export default function Procesor() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[
+      styles.container,
+      { backgroundColor: isDarkMode ? '#212121' : '#ffffff' },
+    ]}>
+      <Stack.Screen 
+        options={{
+          headerLeft: () => {},
+          headerTitle: "Procesadores",
+          headerRight: () => {},
+        }}
+      />
       <Link href="/" style={styles.link}>
         Volver al inicio
       </Link>

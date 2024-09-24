@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { useRef } from "react";
 import { ScrollView, Text, Dimensions, Image, View, StyleSheet, Pressable } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 import { Body } from "./Body";
@@ -13,21 +13,35 @@ export function Main() {
   const activeIndex = useRef(0);
 
   const dummyData = [
-    { id: 1, image: require("../assets/img/Intel.webp") },
-    { id: 2, image: require("../assets/img/mother.png") },
-    { id: 3, image: require("../assets/img/Placas.webp") },
-    { id: 4, image: require("../assets/img/Razer.webp") },
+    { id: 1, image: require('../assets/img/Intel.webp'), label: 'Procesadores', route: '/procesors' },
+    { id: 2, image: require('../assets/img/mother.png'), label: 'Motherboards', route: '/motherboards' },
+    { id: 3, image: require('../assets/img/Placas.webp'), label: 'Tarjetas de Video', route: '/videocards' },
+    { id: 4, image: require('../assets/img/Razer.webp'), label: 'Periféricos', route: '/peripherals' },
   ];
+
   const { isDarkMode, toggleDarkMode } = useTheme();
 
-  console.log('isDarkMode in Main:', isDarkMode);
-
   const MyCarousel = ({ data }) => {
+
     const renderItem = ({ item }) => (
       <View style={styles.card}>
         <Image source={item.image} style={styles.image} resizeMode="contain" />
+    
+        <View style={styles.infoContainer}>
+          <Text style={styles.text}>{item.label}</Text>
+    
+          <Pressable
+            onPress={() => {
+              item.route && router.push(item.route);
+            }}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Ir a {item.label}</Text>
+          </Pressable>
+        </View>
       </View>
     );
+
     return (
       <Carousel
         data={data}
@@ -71,8 +85,6 @@ export function Main() {
             </Text>
           </Pressable>
 
-          <Link href="/procesors" style={styles.link}>IR A PROCESADORES</Link>
-
           <Text
             style={[
               { color: isDarkMode ? "#ffffff" : "#000000", marginTop: 10 },
@@ -91,19 +103,39 @@ export function Main() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#764ABC",
+    backgroundColor: '#764ABC',
     borderRadius: 10,
     padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "auto",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 20,
-    height: 400,
-    overflow: "hidden",
-    resizeMode: "cover",
+    height: 325,
   },
-  link: {
-    color: "blue",
-    fontSize: 16,
-  }
+  image: {
+    width: '100%',
+    height: 225,
+    borderRadius: 10,
+  },
+  infoContainer: {
+    marginTop: 10,
+    alignItems: 'center',
+    width: '100%',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 5,
+  },
+  button: {
+    width: '100%',
+    paddingVertical: 12,
+    backgroundColor: '#f08a5d',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
