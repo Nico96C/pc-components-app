@@ -1,29 +1,32 @@
 /* eslint-disable prettier/prettier */
 import { Link, Stack } from "expo-router";
 import { Text, StyleSheet, View, FlatList, Image } from "react-native";
-import videocardsData from "../mocks/VideoCards.json";
+import peripheralData from "../mocks/Peripherals.json";
 import { useTheme } from "../context/darkmode";
 
-export default function Videocard() {
-  const { VideoCards } = videocardsData;
+export default function Peripheral() {
+  const { perifericos } = peripheralData;
   const { isDarkMode } = useTheme();
 
   const images = {
-    1: require("../img/Category1/1.png"),
-    2: require("../img/Category1/2.png"),
-    3: require("../img/Category1/3.png"),
-    4: require("../img/Category1/4.webp"),
-    5: require("../img/Category1/5.png"),
-    6: require("../img/Category1/6.png"),
-    7: require("../img/Category1/7.png"),
-    8: require("../img/Category1/8.png"),
-    9: require("../img/Category1/9.png"),
-    10: require("../img/Category1/10.png"),
-    11: require("../img/Category1/11.png"),
-    12: require("../img/Category1/12.png"),
-    13: require("../img/Category1/13.png"),
-    14: require("../img/Category1/14.png"),
-    15: require("../img/Category1/15.png"),
+    41: require("../img/Category4/1.png"),
+    42: require("../img/Category4/2.png"),
+    43: require("../img/Category4/3.png"),
+    44: require("../img/Category4/4.png"),
+    45: require("../img/Category4/5.webp"),
+    46: require("../img/Category4/6.png"),
+    47: require("../img/Category4/7.png"),
+    48: require("../img/Category4/8.png"),
+    49: require("../img/Category4/9.png"),
+    50: require("../img/Category4/10.png"),
+    51: require("../img/Category4/11.png"),
+    52: require("../img/Category4/12.png"),
+    53: require("../img/Category4/13.png"),
+    54: require("../img/Category4/14.png"),
+    55: require("../img/Category4/15.png"),
+    56: require("../img/Category4/16.png"),
+    57: require("../img/Category4/17.png"),
+    58: require("../img/Category4/18.png"),
   };
 
   return (
@@ -36,36 +39,28 @@ export default function Videocard() {
       <Stack.Screen
         options={{
           headerLeft: () => {},
-          headerTitle: "Placas de Video",
+          headerTitle: "Perifericos",
           headerRight: () => {},
         }}
       />
-      <Text style={styles.title}>PLACAS DE VIDEO</Text>
-
+      <Text style={styles.title}>PERIFERICOS</Text>
       <FlatList
-        data={VideoCards} // Usamos el array VideoCards
+        data={perifericos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            {/* Imagen principal de la placa de video */}
             <Image
-              source={images[item.id]} // Asigna la imagen según el ID
-              style={styles.thumbnail}
+              source={images[item.id]}
+              style={[styles.thumbnail]}
               resizeMode="contain"
             />
-
             <View style={styles.details}>
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>Chipset: {item.chipset}</Text>
-              <Text style={styles.specs}>Memoria: {item.memory} GB</Text>
               <Text style={styles.specs}>
-                Core Clock: {item.core_clock} MHz
+                Tipo: {item.type}, Formato: {item.form}, Microfono:{" "}
+                {item.microphone ? "Sí" : "No"}
               </Text>
-              <Text style={styles.specs}>
-                Boost Clock: {item.boost_clock} MHz
-              </Text>
-              <Text style={styles.specs}>Color: {item.color}</Text>
             </View>
           </View>
         )}
@@ -111,10 +106,10 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 14,
-    color: "#4CAF50",
+    color: "#4CAF50", // Color verde para el precio
   },
   specs: {
     fontSize: 12,
-    color: "#777",
+    color: "#777", // Color gris para las especificaciones
   },
 });

@@ -1,29 +1,24 @@
 /* eslint-disable prettier/prettier */
 import { Link, Stack } from "expo-router";
 import { Text, StyleSheet, View, FlatList, Image } from "react-native";
-import videocardsData from "../mocks/VideoCards.json";
+import motherboardData from "../mocks/Motherboard.json";
 import { useTheme } from "../context/darkmode";
 
-export default function Videocard() {
-  const { VideoCards } = videocardsData;
+export default function Motherboard() {
+  const { Motherboard } = motherboardData;
   const { isDarkMode } = useTheme();
 
   const images = {
-    1: require("../img/Category1/1.png"),
-    2: require("../img/Category1/2.png"),
-    3: require("../img/Category1/3.png"),
-    4: require("../img/Category1/4.webp"),
-    5: require("../img/Category1/5.png"),
-    6: require("../img/Category1/6.png"),
-    7: require("../img/Category1/7.png"),
-    8: require("../img/Category1/8.png"),
-    9: require("../img/Category1/9.png"),
-    10: require("../img/Category1/10.png"),
-    11: require("../img/Category1/11.png"),
-    12: require("../img/Category1/12.png"),
-    13: require("../img/Category1/13.png"),
-    14: require("../img/Category1/14.png"),
-    15: require("../img/Category1/15.png"),
+    31: require("../img/Category3/1.png"),
+    32: require("../img/Category3/2.png"),
+    33: require("../img/Category3/3.png"),
+    34: require("../img/Category3/4.png"),
+    35: require("../img/Category3/5.png"),
+    36: require("../img/Category3/6.png"),
+    37: require("../img/Category3/7.png"),
+    38: require("../img/Category3/8.png"),
+    39: require("../img/Category3/9.png"),
+    40: require("../img/Category3/10.png"),
   };
 
   return (
@@ -36,36 +31,30 @@ export default function Videocard() {
       <Stack.Screen
         options={{
           headerLeft: () => {},
-          headerTitle: "Placas de Video",
+          headerTitle: "Motherboard",
           headerRight: () => {},
         }}
       />
-      <Text style={styles.title}>PLACAS DE VIDEO</Text>
-
+      <Text style={styles.title}>Motherboards</Text>
       <FlatList
-        data={VideoCards} // Usamos el array VideoCards
+        data={Motherboard}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            {/* Imagen principal de la placa de video */}
             <Image
-              source={images[item.id]} // Asigna la imagen según el ID
-              style={styles.thumbnail}
+              source={images[item.id]}
+              style={[styles.thumbnail]}
               resizeMode="contain"
             />
-
             <View style={styles.details}>
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>Chipset: {item.chipset}</Text>
-              <Text style={styles.specs}>Memoria: {item.memory} GB</Text>
               <Text style={styles.specs}>
-                Core Clock: {item.core_clock} MHz
+                Tipo: {item.type}, Socket: {item.socket}, Slots:{" "}
+                {item.memory_slots}
               </Text>
-              <Text style={styles.specs}>
-                Boost Clock: {item.boost_clock} MHz
-              </Text>
-              <Text style={styles.specs}>Color: {item.color}</Text>
+              <Text style={styles.description}>{item.text}</Text>
+              <Text style={styles.description}>{item["text-2"]}</Text>
             </View>
           </View>
         )}
@@ -111,10 +100,10 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 14,
-    color: "#4CAF50",
+    color: "#4CAF50", // Color verde para el precio
   },
   specs: {
     fontSize: 12,
-    color: "#777",
+    color: "#777", // Color gris para las especificaciones
   },
 });

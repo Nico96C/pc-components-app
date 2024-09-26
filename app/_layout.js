@@ -1,19 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "../context/darkmode";
 import { Logo } from "../components/Logo";
 import { useState } from "react";
+import Sidebar from "../components/sidebar"; // Asegúrate de que esté bien importado
 
 export default function Layout() {
-  const [activo, setActivo] = useState(false);
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
-  const handleClick = () => {
-      setActivo(!activo);
-      console.log("Hamburger button clicked!");
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
   };
-
-  console.log(handleClick);
 
   return (
     <View style={styles.vista}>
@@ -24,9 +22,14 @@ export default function Layout() {
             headerTintColor: "white",
             headerTitle: "",
             headerLeft: () => <Logo />,
-            headerRight: () => {},
+            headerRight: () => (
+              <Pressable onPress={toggleSidebar} style={styles.hamburgerButton}>
+                <Text style={styles.hamburgerText}>☰</Text>
+              </Pressable>
+            ),
           }}
         />
+        <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
       </ThemeProvider>
     </View>
   );
@@ -37,7 +40,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121",
     flex: 1,
   },
-  texto: {
-    color: "#ffffff",
+  hamburgerButton: {
+    padding: 10,
+    marginRight: 10,
+  },
+  hamburgerText: {
+    backgroundColor: '#5b0888',
+    borderRadius: 50,
+    paddingRight: 9,
+    paddingLeft: 9,
+    paddingBottom: 3,
+    paddingTop: 2,
+    fontSize: 30,
+    color: "#fff",
   },
 });

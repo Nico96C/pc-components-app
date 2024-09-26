@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { useRef } from "react";
 import { ScrollView, Text, Dimensions, Image, View, StyleSheet, Pressable } from "react-native";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 import { Body } from "./Body";
 import { useTheme } from "../context/darkmode";
+
 const { width: screenWidth } = Dimensions.get("window");
 
 export function Main() {
@@ -19,7 +20,7 @@ export function Main() {
     { id: 4, image: require('../assets/img/Razer.webp'), label: 'Periféricos', route: '/peripherals' },
   ];
 
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
 
   const MyCarousel = ({ data }) => {
 
@@ -28,7 +29,6 @@ export function Main() {
         <Image source={item.image} style={styles.image} resizeMode="contain" />
     
         <View style={styles.infoContainer}>
-          <Text style={styles.text}>{item.label}</Text>
     
           <Pressable
             onPress={() => {
@@ -69,29 +69,8 @@ export function Main() {
             padding: 12,
           }}
         >
-          <Pressable
-            onPress={toggleDarkMode}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? '#666' : isDarkMode ? '#444' : '#ddd',
-                padding: 10,
-                borderRadius: 5,
-                marginBottom: 20,
-              }
-            ]}
-          >
-            <Text style={{ color: isDarkMode ? "#ffffff" : "#000000" }}>
-              {isDarkMode ? "Light Mode" : "Dark Mode"}
-            </Text>
-          </Pressable>
 
-          <Text
-            style={[
-              { color: isDarkMode ? "#ffffff" : "#000000", marginTop: 10 },
-            ]}
-          >
-            PC - COMPONENTES
-          </Text>
+          <Text>ARMAR BAR</Text>
 
           <MyCarousel data={dummyData} />
           <Body isDarkMode={isDarkMode} />
@@ -130,7 +109,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     paddingVertical: 12,
-    backgroundColor: '#f08a5d',
+    backgroundColor: '#5b0888',
     borderRadius: 5,
     alignItems: 'center',
   },
