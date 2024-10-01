@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { Text, StyleSheet, View, FlatList, Image } from "react-native";
 import motherboardData from "../mocks/Motherboard.json";
 import { useTheme } from "../context/darkmode";

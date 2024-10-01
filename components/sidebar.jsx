@@ -9,10 +9,8 @@ import {
   Dimensions,
 } from "react-native";
 import { useTheme } from "../context/darkmode";
-import { useNavigation } from "@react-navigation/native";
 
 const Sidebar = ({ isVisible, toggleSidebar }) => {
-  const navigation = useNavigation();
   const { isDarkMode, toggleDarkMode } = useTheme();
 
   const slideAnim = React.useRef(
@@ -33,46 +31,6 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
     >
       <View style={styles.sidebarContent}>
         <Text style={styles.sidebarText}>Menú Navegación</Text>
-
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("procesors");
-            toggleSidebar();
-          }}
-        >
-          <Text style={styles.buttonText}>Procesadores</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("videocards");
-            toggleSidebar();
-          }}
-        >
-          <Text style={styles.buttonText}>Placas de Video</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("peripherals");
-            toggleSidebar();
-          }}
-        >
-          <Text style={styles.buttonText}>Periféricos</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("motherboards");
-            toggleSidebar();
-          }}
-        >
-          <Text style={styles.buttonText}>Motherboards</Text>
-        </Pressable>
 
         <Pressable
           style={styles.button}

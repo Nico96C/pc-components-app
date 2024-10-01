@@ -4,7 +4,8 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "../context/darkmode";
 import { Logo } from "../components/Logo";
 import { useState } from "react";
-import Sidebar from "../components/sidebar"; // Asegúrate de que esté bien importado
+import Sidebar from "../components/sidebar";
+import { ModalProvider } from "../context/modalContext";
 
 export default function Layout() {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -16,20 +17,25 @@ export default function Layout() {
   return (
     <View style={styles.vista}>
       <ThemeProvider>
-        <Stack 
-          screenOptions={{
-            headerStyle: { backgroundColor: "#713abe"},
-            headerTintColor: "white",
-            headerTitle: "",
-            headerLeft: () => <Logo />,
-            headerRight: () => (
-              <Pressable onPress={toggleSidebar} style={styles.hamburgerButton}>
-                <Text style={styles.hamburgerText}>☰</Text>
-              </Pressable>
-            ),
-          }}
-        />
-        <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+        <ModalProvider>
+          <Stack
+            screenOptions={{
+              headerStyle: { backgroundColor: "#713abe" },
+              headerTintColor: "white",
+              headerTitle: "",
+              headerLeft: () => <Logo />,
+              headerRight: () => (
+                <Pressable
+                  onPress={toggleSidebar}
+                  style={styles.hamburgerButton}
+                >
+                  <Text style={styles.hamburgerText}>☰</Text>
+                </Pressable>
+              ),
+            }}
+          />
+          <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+        </ModalProvider>
       </ThemeProvider>
     </View>
   );
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   hamburgerText: {
-    backgroundColor: '#5b0888',
+    backgroundColor: "#5b0888",
     borderRadius: 50,
     paddingRight: 9,
     paddingLeft: 9,

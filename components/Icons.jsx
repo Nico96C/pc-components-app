@@ -13,3 +13,7 @@ export const HomeIcon = (props) => (
 export const InfoIcon = (props) => (
   <FontAwesome name="info" size={24} color="white" {...props} />
 );
+
+export const CartIcon = (props) => (
+  <FontAwesome name="shopping-cart" size={24} color="white" {...props} />
+);
