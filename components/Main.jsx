@@ -237,14 +237,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonContainer: {
-    flexDirection: "row", // Usar fila para los botones
-    flexWrap: "wrap", // Permitir que los botones se envuelvan
-    justifyContent: "space-between", // Espacio igual entre botones
-    width: "106%", // Asegúrate de que ocupe todo el ancho
-    marginBottom: 20, // Espaciado debajo de la grilla
-    backgroundColor: "#713abe", // Color de fondo para el contenedor
-    padding: 10, // Espaciado interior del contenedor
-    borderRadius: 10, // Esquinas redondeadas (opcional)
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    width: "106%",
+    marginBottom: 20,
+    backgroundColor: "#713abe",
+    padding: 10,
+    borderRadius: 10,
   },
   button2: {
     backgroundColor: "#5b0888",

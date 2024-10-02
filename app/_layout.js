@@ -6,6 +6,7 @@ import { Logo } from "../components/Logo";
 import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import { ModalProvider } from "../context/modalContext";
+import { SettingIcon } from "../components/Icons";
 
 export default function Layout() {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -29,7 +30,7 @@ export default function Layout() {
                   onPress={toggleSidebar}
                   style={styles.hamburgerButton}
                 >
-                  <Text style={styles.hamburgerText}>☰</Text>
+                  <SettingIcon style={styles.hamburgerText}/>
                 </Pressable>
               ),
             }}
@@ -53,11 +54,13 @@ const styles = StyleSheet.create({
   hamburgerText: {
     backgroundColor: "#5b0888",
     borderRadius: 50,
-    paddingRight: 9,
+    paddingRight: 7,
     paddingLeft: 9,
-    paddingBottom: 3,
-    paddingTop: 2,
-    fontSize: 30,
-    color: "#fff",
+    paddingBottom: 7,
+    paddingTop: 7,
+    fontSize: 26,
+    color: "black",
+    borderWidth: 1,
+    borderColor: "#9d76c1",
   },
 });
