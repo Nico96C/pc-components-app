@@ -8,24 +8,6 @@ export default function Procesor() {
   const { Procesadores } = procesorsData;
   const { isDarkMode } = useTheme();
 
-  const images = {
-    16: require("../img/Category2/1.png"),
-    17: require("../img/Category2/2.webp"),
-    18: require("../img/Category2/3.png"),
-    19: require("../img/Category2/4.png"),
-    20: require("../img/Category2/5.webp"),
-    21: require("../img/Category2/6.webp"),
-    22: require("../img/Category2/7-9.png"),
-    23: require("../img/Category2/8.png"),
-    24: require("../img/Category2/7-9.png"),
-    25: require("../img/Category2/10.webp"),
-    26: require("../img/Category2/11.png"),
-    27: require("../img/Category2/12.png"),
-    28: require("../img/Category2/13.png"),
-    29: require("../img/Category2/14.png"),
-    30: require("../img/Category2/15.png"),
-  };
-
   return (
     <View
       style={[
@@ -47,7 +29,7 @@ export default function Procesor() {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Image
-              source={images[item.id]}
+              source={{ uri: item.thumbnail }}
               style={[styles.thumbnail]}
               resizeMode="contain"
             />

@@ -8,24 +8,6 @@ export default function Videocard() {
   const { VideoCards } = videocardsData;
   const { isDarkMode } = useTheme();
 
-  const images = {
-    1: require("../img/Category1/1.png"),
-    2: require("../img/Category1/2.png"),
-    3: require("../img/Category1/3.png"),
-    4: require("../img/Category1/4.webp"),
-    5: require("../img/Category1/5.png"),
-    6: require("../img/Category1/6.png"),
-    7: require("../img/Category1/7.png"),
-    8: require("../img/Category1/8.png"),
-    9: require("../img/Category1/9.png"),
-    10: require("../img/Category1/10.png"),
-    11: require("../img/Category1/11.png"),
-    12: require("../img/Category1/12.png"),
-    13: require("../img/Category1/13.png"),
-    14: require("../img/Category1/14.png"),
-    15: require("../img/Category1/15.png"),
-  };
-
   return (
     <View
       style={[
@@ -49,7 +31,7 @@ export default function Videocard() {
           <View style={styles.item}>
             {/* Imagen principal de la placa de video */}
             <Image
-              source={images[item.id]} // Asigna la imagen según el ID
+              source={{ uri: item.thumbnail }}
               style={styles.thumbnail}
               resizeMode="contain"
             />

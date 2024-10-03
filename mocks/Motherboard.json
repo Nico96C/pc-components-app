@@ -13,8 +13,8 @@
         "text": "Compatibilidad con M.2 de última generación: Un puerto PCIe® 5.0 M.2 y dos puertos PCIe 4.0 M.2, todos con disipadores térmicos para maximizar el rendimiento.",
         "text-2": "Conectividad avanzada: Un USB 3.2 Gen 2x2 Type-C® y ocho puertos USB traseros adicionales, USB 3.2 Gen 2 Type-C® para panel frontal, HDMI® 2.1, DisplayPort™ 1.4 y un PCIe 4.0 x16 SafeSlot.",
         "stock": true,
-        "thumbnail": "/img/Category3/1.png",
-        "img-1": "/img/Category3/1conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/1.png?updatedAt=1727978654814",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/1conect.png?updatedAt=1727978656137",
         "color": "Black / Silver"
     },
     {
@@ -31,8 +31,8 @@
         "text": "M.2 Shield Frozr La solución térmica M.2 reforzada ayuda a las SSD M.2 a estar seguras y garantiza un increíble rendimiento.",
         "text-2": "Soporta memorias DDR5, Dual Channel DDR5 7200+MHz (OC)",
         "stock": true,
-        "thumbnail": "/img/Category3/2.png",
-        "img-1": "/img/Category3/2conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/2.png?updatedAt=1727978656949",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/2conect.png?updatedAt=1727978657162",
         "color": "Black"
     },
     {
@@ -49,8 +49,8 @@
         "text": "M.2 Shield Frozr La solución térmica M.2 reforzada ayuda a las SSD M.2 a estar seguras y garantiza un rendimiento increíble.",
         "text-2": "Heatsink extendido El disipador térmico ampliado aumenta la superficie de disipación del calor y mantiene el rendimiento con cargas pesadas.",
         "stock": true,
-        "thumbnail": "/img/Category3/3.png",
-        "img-1": "/img/Category3/3conect.webp",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/3.png?updatedAt=1727978656825",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/3conect.webp?updatedAt=1727978656969",
         "color": "Black / Silver"
     },
     {
@@ -67,8 +67,8 @@
         "text": "Advanced Thermal Design & M.2 Thermal Guard: To Ensure VRM Power Stability & 25110 M.2 SSD Performance.",
         "text-2": "Dual Channel DDR5: 4*SMD DIMMs with AMD EXPO™ & Intel® XMP Memory Module Support",
         "stock": true,
-        "thumbnail": "/img/Category3/4.png",
-        "img-1": "/img/Category3/4conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/4.png?updatedAt=1727978657107",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/4conect.png?updatedAt=1727978656803",
         "color": "Black / Gray"
     },
     {
@@ -85,8 +85,8 @@
         "text": "Audio para juegos líder en la industria: Cancelación de ruido AI bidireccional, códec SupremeFX S1220A, DTS® Sound Unbound™ y Sonic Studio III para un sonido envolvente.",
         "text-2": "Solución de alimentación robusta: 12 + 2 fases de poder combinadas con conector de alimentación ProCool, chokes de aleación de alta calidad y condensadores duraderos.",
         "stock": false,
-        "thumbnail": "/img/Category3/5.png",
-        "img-1": "/img/Category3/5conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/5.png?updatedAt=1727978657993",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/5conect.png?updatedAt=1727978657111",
         "color": "Black / Red"
     },
     {
@@ -103,8 +103,8 @@
         "text": "Fully Covered Heatpipe & M.2 Thermal Guard: To Ensure VRM Power Stability & 25110 PCIe 5.0 M.2 SSD Performance.",
         "text-2": "Smart Fan 6: Features Multiple Temperature Sensors, Hybrid Fan Headers with FAN STOP.",
         "stock": true,
-        "thumbnail": "/img/Category3/6.png",
-        "img-1": "/img/Category3/6conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/6.png?updatedAt=1727978657418",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/6conect.png?updatedAt=1727978655961",
         "color": "Black / Silver"
     },
     {
@@ -121,8 +121,8 @@
         "text": "Conectividad de alta velocidad: Dos M.2, PCIe 4.0, Intel® Wi-Fi 6, 1 Gb Ethernet, USB 3.2 Gen. 2 de tipo A.",
         "text-2": "Aura Sync RGB: Conector direccionable de 2.ª Gen. Y conectores RGB para tiras LED que puedes sincronizar a través de Aura Sync.",
         "stock": true,
-        "thumbnail": "/img/Category3/7.png",
-        "img-1": "/img/Category3/7conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/7.png?updatedAt=1727978654931",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/7conect.png?updatedAt=1727978654837",
         "color": "Blue / Silver"
     },
     {
@@ -139,8 +139,8 @@
         "text": "Control inteligente: AI Overclocking, AI Cooling II, AI Networking y cancelación de ruido AI bidireccional para simplificar la configuración y mejorar el rendimiento.",
         "text-2": "Térmicas VRM optimizadas: Disipadores de calor masivos integrados con la cubierta de E/S, unidos por un heatpipe en forma de L y conectados a las fases de poder con almohadillas térmicas de alta conductividad.",
         "stock": true,
-        "thumbnail": "/img/Category3/8.png",
-        "img-1": "/img/Category3/8conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/8.png?updatedAt=1727978654907",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/8conect.png?updatedAt=1727978655740",
         "color": "Black"
     },
     {
@@ -157,8 +157,8 @@
         "text": "Conectividad avanzada: Un USB 3.2 Gen 2x2 Type-C® y once puertos USB traseros adicionales, USB 3.2 Gen 2 Type-C® para panel frontal, HDMI® 2.1, DisplayPort™ 1.4 y un PCIe 4.0 x16 SafeSlot.",
         "text-2": "Diseño térmico optimizado: Disipadores térmicos VRM masivos con canales de flujo de aire cortados estratégicamente y almohadillas térmicas de alta conductividad.",
         "stock": true,
-        "thumbnail": "/img/Category3/9.png",
-        "img-1": "/img/Category3/9conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/9.png?updatedAt=1727978655874",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/9conect.png?updatedAt=1727978654777",
         "color": "Black"
     },
     {
@@ -175,8 +175,8 @@
         "text": "Térmicas VRM optimizadas: Disipadores de calor masivos conectados al VRM con almohadillas térmicas de alta conductividad y con una cubierta de E/S integrada.",
         "text-2": "Personalización inigualable: Iluminación Aura Sync RGB exclusiva de ASUS, que incluye un puerto RGB y tres puertos Gen 2 direccionables.",
         "stock": true,
-        "thumbnail": "/img/Category3/10.png",
-        "img-1": "/img/Category3/10conect.png",
+        "thumbnail": "https://ik.imagekit.io/m3g4ID/Category3/10.png?updatedAt=1727978654790",
+        "img-1": "https://ik.imagekit.io/m3g4ID/Category3/10conect.png?updatedAt=1727978654916",
         "color": "Black / Silver"
     }
 ]}

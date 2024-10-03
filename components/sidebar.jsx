@@ -9,6 +9,7 @@ import {
   Dimensions,
   TextInput,
   FlatList,
+  Image,
 } from "react-native";
 import { useTheme } from "../context/darkmode";
 import PlacasJSON from "../mocks/VideoCards.json";
@@ -66,10 +67,23 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
 
   return (
     <Animated.View
-      style={[styles.sidebar, { transform: [{ translateX: slideAnim }], backgroundColor: isDarkMode ? "#212121" : "#ffffff" }]}
+      style={[
+        styles.sidebar,
+        {
+          transform: [{ translateX: slideAnim }],
+          backgroundColor: isDarkMode ? "#212121" : "#ffffff",
+        },
+      ]}
     >
       <View style={styles.sidebarContent}>
-        <Text style={[styles.sidebarText, { Color: isDarkMode ? "#ffffff" : "#212121" }]}>Menú Navegación</Text>
+        <Text
+          style={[
+            styles.sidebarText,
+            { color: isDarkMode ? "#ffffff" : "#212121" },
+          ]}
+        >
+          Menú Navegación
+        </Text>
         <View style={styles.container}>
           <View style={styles.searchContainer}>
             <TextInput
@@ -85,7 +99,16 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                   <View style={styles.resultItem}>
+                    <Image
+                      source={{ uri: item.thumbnail }}
+                      style={styles.thumbnail}
+                    />
+
                     <Text>{item.name}</Text>
+
+                    {item.type === "Placa de Video" && (
+                      <Text>Chipset: {item.chipset}</Text>
+                    )}
                   </View>
                 )}
               />
@@ -162,30 +185,41 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center", // Centra el contenedor verticalmente
-    alignItems: "center", // Centra el contenedor horizontalmente
     width: 375,
+    height: "50%",
     padding: 20,
-    backgroundColor: "#212121", // Color de fondo opcional
+    backgroundColor: "#713abe",
   },
   searchContainer: {
+    alignItems: "center",
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#5b0888",
     borderRadius: 5, // Esquinas redondeadas
     padding: 10, // Espaciado interno
   },
   input: {
     height: 25,
     width: "80%",
-    borderColor: "#ccc",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 8,
+    borderColor: "#e5cff7",
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderRadius: 15,
+    margin: 5,
+    padding: 5,
   },
   resultItem: {
-    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+    width: 315,
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+  },
+  thumbnail: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
   },
 });
 

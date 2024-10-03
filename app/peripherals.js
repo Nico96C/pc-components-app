@@ -8,27 +8,6 @@ export default function Peripheral() {
   const { perifericos } = peripheralData;
   const { isDarkMode } = useTheme();
 
-  const images = {
-    41: require("../img/Category4/1.png"),
-    42: require("../img/Category4/2.png"),
-    43: require("../img/Category4/3.png"),
-    44: require("../img/Category4/4.png"),
-    45: require("../img/Category4/5.webp"),
-    46: require("../img/Category4/6.png"),
-    47: require("../img/Category4/7.png"),
-    48: require("../img/Category4/8.png"),
-    49: require("../img/Category4/9.png"),
-    50: require("../img/Category4/10.png"),
-    51: require("../img/Category4/11.png"),
-    52: require("../img/Category4/12.png"),
-    53: require("../img/Category4/13.png"),
-    54: require("../img/Category4/14.png"),
-    55: require("../img/Category4/15.png"),
-    56: require("../img/Category4/16.png"),
-    57: require("../img/Category4/17.png"),
-    58: require("../img/Category4/18.png"),
-  };
-
   return (
     <View
       style={[
@@ -50,7 +29,7 @@ export default function Peripheral() {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Image
-              source={images[item.id]}
+              source={{ uri: item.thumbnail }}
               style={[styles.thumbnail]}
               resizeMode="contain"
             />

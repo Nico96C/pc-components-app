@@ -8,19 +8,6 @@ export default function Motherboard() {
   const { Motherboard } = motherboardData;
   const { isDarkMode } = useTheme();
 
-  const images = {
-    31: require("../img/Category3/1.png"),
-    32: require("../img/Category3/2.png"),
-    33: require("../img/Category3/3.png"),
-    34: require("../img/Category3/4.png"),
-    35: require("../img/Category3/5.png"),
-    36: require("../img/Category3/6.png"),
-    37: require("../img/Category3/7.png"),
-    38: require("../img/Category3/8.png"),
-    39: require("../img/Category3/9.png"),
-    40: require("../img/Category3/10.png"),
-  };
-
   return (
     <View
       style={[
@@ -42,7 +29,7 @@ export default function Motherboard() {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Image
-              source={images[item.id]}
+              source={{ uri: item.thumbnail }}
               style={[styles.thumbnail]}
               resizeMode="contain"
             />
