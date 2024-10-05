@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -53,17 +53,61 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
     setSearchResults(results);
   };
 
-  const slideAnim = React.useRef(
+  const slideAnim = useRef(
     new Animated.Value(Dimensions.get("window").width)
   ).current;
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.timing(slideAnim, {
       toValue: isVisible ? 0 : Dimensions.get("window").width,
       duration: 300,
       useNativeDriver: true,
     }).start();
   }, [isVisible]);
+
+  // Animaciones en cascada para los resultados
+  const AnimatedResultItem = ({ item, index }) => {
+    const slideAnim = useRef(new Animated.Value(-50)).current;
+    const opacityAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          delay: index * 100, // Retraso en cascada
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 300,
+          delay: index * 100, // Mismo retraso para la opacidad
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }, [slideAnim, opacityAnim, index]);
+
+    return (
+      <Animated.View
+        style={[
+          styles.resultItem,
+          {
+            transform: [{ translateY: slideAnim }],
+            opacity: opacityAnim,
+          },
+        ]}
+      >
+        <Image source={{ uri: item.thumbnail }} style={styles.thumbnail} />
+        <View style={styles.textContainer}>
+          <Text style={styles.itemText}>{item.name}</Text>
+
+          {item.type === "Placa de Video" && (
+            <Text style={styles.itemText}>Chipset: {item.chipset}</Text>
+          )}
+        </View>
+      </Animated.View>
+    );
+  };
 
   return (
     <Animated.View
@@ -97,20 +141,10 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
               <FlatList
                 data={searchResults}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <View style={styles.resultItem}>
-                    <Image
-                      source={{ uri: item.thumbnail }}
-                      style={styles.thumbnail}
-                    />
-
-                    <Text>{item.name}</Text>
-
-                    {item.type === "Placa de Video" && (
-                      <Text>Chipset: {item.chipset}</Text>
-                    )}
-                  </View>
+                renderItem={({ item, index }) => (
+                  <AnimatedResultItem item={item} index={index} />
                 )}
+                style={styles.flatList}
               />
             )}
           </View>
@@ -143,7 +177,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   sidebarContent: {
@@ -186,26 +220,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: 375,
-    height: "50%",
+    maxHeight: 350,
+    alignItems: "flex-start",
     padding: 20,
     backgroundColor: "#713abe",
   },
   searchContainer: {
     alignItems: "center",
     width: "100%",
+    maxHeight: 300,
     backgroundColor: "#5b0888",
-    borderRadius: 5, // Esquinas redondeadas
-    padding: 10, // Espaciado interno
+    borderRadius: 5,
+    padding: 15,
   },
   input: {
-    height: 25,
-    width: "80%",
+    height: 30,
+    width: "90%",
     borderColor: "#e5cff7",
     backgroundColor: "white",
     borderWidth: 2,
     borderRadius: 15,
     margin: 5,
-    padding: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 9,
+    paddingRight: 9,
   },
   resultItem: {
     flexDirection: "row",
@@ -220,6 +259,20 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 10,
+  },
+  textContainer: {
+    flexDirection: "column",
+  },
+  itemText: {
+    fontSize: 16,
+    color: "#ffffff",
+    marginBottom: 5,
+  },
+  flatList: {
+    maxHeight: 550,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
 });
 
