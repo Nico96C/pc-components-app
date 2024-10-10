@@ -21,6 +21,17 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const animatedHeight = useRef(new Animated.Value(110)).current;
+
+  useEffect(() => {
+    // Animación cuando el contenedor cambia entre activo e inactivo
+    Animated.timing(animatedHeight, {
+      toValue: isActive ? 670 : 110, // Altura de contenedor activo/inactivo
+      duration: 300, // Duración de la transición en ms
+      useNativeDriver: false, // No se puede animar el height con native driver
+    }).start();
+  }, [isActive]);
 
   const handleSearch = () => {
     if (searchTerm.trim() === "") {
@@ -33,6 +44,7 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
   const handleInputChange = (text) => {
     setSearchTerm(text);
     handleSearch();
+    setIsActive(text.length > 0);
   };
 
   const search = (term) => {
@@ -104,6 +116,17 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
           {item.type === "Placa de Video" && (
             <Text style={styles.itemText}>Chipset: {item.chipset}</Text>
           )}
+          {item.type === "Mother" && (
+            <Text style={styles.itemText}>Socket: {item.socket}</Text>
+          )}
+          {item.type === "Procesador" && (
+            <Text style={styles.itemText}>Nucleos: {item.core_count} de {item.core_clock} GHz</Text>
+          )}
+          {item.type === "Periferico" && (
+            <Text style={styles.itemText}>Color: {item.color}</Text>
+          )}
+
+          <Text style={styles.itemText2}>${item.price}</Text>
         </View>
       </Animated.View>
     );
@@ -120,15 +143,25 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
       ]}
     >
       <View style={styles.sidebarContent}>
-        <Text
-          style={[
-            styles.sidebarText,
-            { color: isDarkMode ? "#ffffff" : "#212121" },
-          ]}
+        <View style={styles.navBar}>
+          <Text
+            style={[
+              styles.sidebarText,
+              { color: isDarkMode ? "#ffffff" : "#212121" },
+            ]}
+          >
+            Menú Navegación
+          </Text>
+          <Pressable style={styles.button} onPress={toggleDarkMode}>
+            <Text style={styles.buttonText}>
+              {isDarkMode ? "Modo Claro" : "Modo Oscuro"}
+            </Text>
+          </Pressable>
+        </View>
+
+        <Animated.View
+          style={[styles.container, { maxHeight: animatedHeight }]}
         >
-          Menú Navegación
-        </Text>
-        <View style={styles.container}>
           <View style={styles.searchContainer}>
             <TextInput
               style={styles.input}
@@ -148,13 +181,7 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
               />
             )}
           </View>
-        </View>
-
-        <Pressable style={styles.button} onPress={toggleDarkMode}>
-          <Text style={styles.buttonText}>
-            {isDarkMode ? "Modo Claro" : "Modo Oscuro"}
-          </Text>
-        </Pressable>
+        </Animated.View>
 
         <Pressable onPress={toggleSidebar} style={styles.closeButton}>
           <Text style={styles.closeButtonText}>Cerrar</Text>
@@ -190,25 +217,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#007bff",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
+    backgroundColor: "#713abe",
+    marginTop: 25,
+    paddingVertical: 5,
     borderRadius: 10,
-    marginVertical: 10,
-    width: "70%",
+    width: "25%",
     alignItems: "center",
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 14,
   },
   closeButton: {
-    backgroundColor: "red",
+    backgroundColor: "#5b0888",
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 10,
-    marginVertical: 10,
+    marginTop: 50,
     width: "70%",
     alignItems: "center",
   },
@@ -220,18 +246,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: 375,
-    maxHeight: 350,
+    maxHeight: 110,
     alignItems: "flex-start",
     padding: 20,
+    backgroundColor: "#713abe",
+    borderRadius: 5,
+  },
+  active: {
     backgroundColor: "#713abe",
   },
   searchContainer: {
     alignItems: "center",
     width: "100%",
-    maxHeight: 300,
+    maxHeight: 630,
     backgroundColor: "#5b0888",
     borderRadius: 5,
-    padding: 15,
+    padding: 10,
   },
   input: {
     height: 30,
@@ -251,14 +281,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
     width: 315,
-    padding: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+    gap: 5,
   },
   thumbnail: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
+    width: 75,
+    height: 75,
   },
   textContainer: {
     flexDirection: "column",
@@ -268,12 +299,24 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     marginBottom: 5,
   },
+  itemText2: {
+    fontSize: 18,
+    color: "#e5cff7",
+    marginBottom: 5,
+  },
   flatList: {
     maxHeight: 550,
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
+  navBar: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 40,
+  }
 });
 
 export default Sidebar;

@@ -22,7 +22,11 @@ export default function Motherboard() {
           headerRight: () => {},
         }}
       />
-      <Text style={styles.title}>Motherboards</Text>
+      <Text
+        style={[styles.title, { color: isDarkMode ? "#ffffff" : "#212121" }]}
+      >
+        Motherboards
+      </Text>
       <FlatList
         data={Motherboard}
         keyExtractor={(item) => item.id.toString()}
@@ -34,7 +38,14 @@ export default function Motherboard() {
               resizeMode="contain"
             />
             <View style={styles.details}>
-              <Text style={styles.name}>{item.name}</Text>
+              <Text
+                style={[
+                  styles.name,
+                  { color: isDarkMode ? "#ffffff" : "#212121" },
+                ]}
+              >
+                {item.name}
+              </Text>
               <Text style={styles.price}>${item.price.toFixed(2)}</Text>
               <Text style={styles.specs}>
                 Tipo: {item.type}, Socket: {item.socket}, Slots:{" "}

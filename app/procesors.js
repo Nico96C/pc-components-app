@@ -22,7 +22,11 @@ export default function Procesor() {
           headerRight: () => {},
         }}
       />
-      <Text style={styles.title}>PROCESADORES</Text>
+      <Text
+        style={[styles.title, { color: isDarkMode ? "#ffffff" : "#212121" }]}
+      >
+        PROCESADORES
+      </Text>
       <FlatList
         data={Procesadores}
         keyExtractor={(item) => item.id.toString()}
@@ -34,7 +38,14 @@ export default function Procesor() {
               resizeMode="contain"
             />
             <View style={styles.details}>
-              <Text style={styles.name}>{item.name}</Text>
+              <Text
+                style={[
+                  styles.name,
+                  { color: isDarkMode ? "#ffffff" : "#212121" },
+                ]}
+              >
+                {item.name}
+              </Text>
               <Text style={styles.price}>${item.price.toFixed(2)}</Text>
               <Text style={styles.specs}>
                 Cores: {item.core_count}, Clock: {item.core_clock} GHz
