@@ -16,6 +16,7 @@ import PlacasJSON from "../mocks/VideoCards.json";
 import ProceJSON from "../mocks/Procesors.json";
 import MotherJSON from "../mocks/Motherboard.json";
 import PeriJSON from "../mocks/Peripherals.json";
+import { Link } from "expo-router";
 
 const Sidebar = ({ isVisible, toggleSidebar }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
@@ -25,11 +26,10 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
   const animatedHeight = useRef(new Animated.Value(110)).current;
 
   useEffect(() => {
-    // Animación cuando el contenedor cambia entre activo e inactivo
     Animated.timing(animatedHeight, {
-      toValue: isActive ? 670 : 110, // Altura de contenedor activo/inactivo
-      duration: 300, // Duración de la transición en ms
-      useNativeDriver: false, // No se puede animar el height con native driver
+      toValue: isActive ? 670 : 110,
+      duration: 300,
+      useNativeDriver: false,
     }).start();
   }, [isActive]);
 
@@ -77,7 +77,6 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
     }).start();
   }, [isVisible]);
 
-  // Animaciones en cascada para los resultados
   const AnimatedResultItem = ({ item, index }) => {
     const slideAnim = useRef(new Animated.Value(-50)).current;
     const opacityAnim = useRef(new Animated.Value(0)).current;
@@ -87,13 +86,13 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
         Animated.timing(slideAnim, {
           toValue: 0,
           duration: 300,
-          delay: index * 100, // Retraso en cascada
+          delay: index * 100,
           useNativeDriver: true,
         }),
         Animated.timing(opacityAnim, {
           toValue: 1,
           duration: 300,
-          delay: index * 100, // Mismo retraso para la opacidad
+          delay: index * 100,
           useNativeDriver: true,
         }),
       ]).start();
@@ -120,7 +119,9 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
             <Text style={styles.itemText}>Socket: {item.socket}</Text>
           )}
           {item.type === "Procesador" && (
-            <Text style={styles.itemText}>Nucleos: {item.core_count} de {item.core_clock} GHz</Text>
+            <Text style={styles.itemText}>
+              Nucleos: {item.core_count} de {item.core_clock} GHz
+            </Text>
           )}
           {item.type === "Periferico" && (
             <Text style={styles.itemText}>Color: {item.color}</Text>
@@ -175,7 +176,15 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
                 data={searchResults}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item, index }) => (
-                  <AnimatedResultItem item={item} index={index} />
+                  <Link href={`/${item.id}`} asChild>
+                    <Pressable
+                      onPress={() => {
+                        toggleSidebar();
+                      }}
+                    >
+                      <AnimatedResultItem item={item} index={index} />
+                    </Pressable>
+                  </Link>
                 )}
                 style={styles.flatList}
               />
@@ -316,7 +325,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 40,
-  }
+  },
 });
 
 export default Sidebar;

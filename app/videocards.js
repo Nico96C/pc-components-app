@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Link, Stack } from "expo-router";
-import { Text, StyleSheet, View, FlatList, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import videocardsData from "../mocks/VideoCards.json";
 import { useTheme } from "../context/darkmode";
 
@@ -29,38 +36,42 @@ export default function Videocard() {
       </Text>
 
       <FlatList
-        data={VideoCards} // Usamos el array VideoCards
+        data={VideoCards}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            {/* Imagen principal de la placa de video */}
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={styles.thumbnail}
-              resizeMode="contain"
-            />
+          <Link href={`/${item.id}`} asChild>
+            <Pressable>
+              <View style={styles.item}>
+                {/* Imagen principal de la placa de video */}
+                <Image
+                  source={{ uri: item.thumbnail }}
+                  style={styles.thumbnail}
+                  resizeMode="contain"
+                />
 
-            <View style={styles.details}>
-              <Text
-                style={[
-                  styles.name,
-                  { color: isDarkMode ? "#ffffff" : "#212121" },
-                ]}
-              >
-                {item.name}
-              </Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>Chipset: {item.chipset}</Text>
-              <Text style={styles.specs}>Memoria: {item.memory} GB</Text>
-              <Text style={styles.specs}>
-                Core Clock: {item.core_clock} MHz
-              </Text>
-              <Text style={styles.specs}>
-                Boost Clock: {item.boost_clock} MHz
-              </Text>
-              <Text style={styles.specs}>Color: {item.color}</Text>
-            </View>
-          </View>
+                <View style={styles.details}>
+                  <Text
+                    style={[
+                      styles.name,
+                      { color: isDarkMode ? "#ffffff" : "#212121" },
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                  <Text style={styles.specs}>Chipset: {item.chipset}</Text>
+                  <Text style={styles.specs}>Memoria: {item.memory} GB</Text>
+                  <Text style={styles.specs}>
+                    Core Clock: {item.core_clock} MHz
+                  </Text>
+                  <Text style={styles.specs}>
+                    Boost Clock: {item.boost_clock} MHz
+                  </Text>
+                  <Text style={styles.specs}>Color: {item.color}</Text>
+                </View>
+              </View>
+            </Pressable>
+          </Link>
         )}
       />
     </View>

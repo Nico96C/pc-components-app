@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Stack } from "expo-router";
-import { Text, StyleSheet, View, FlatList, Image } from "react-native";
+import { Link, Stack } from "expo-router";
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import motherboardData from "../mocks/Motherboard.json";
 import { useTheme } from "../context/darkmode";
 
@@ -31,30 +38,34 @@ export default function Motherboard() {
         data={Motherboard}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={[styles.thumbnail]}
-              resizeMode="contain"
-            />
-            <View style={styles.details}>
-              <Text
-                style={[
-                  styles.name,
-                  { color: isDarkMode ? "#ffffff" : "#212121" },
-                ]}
-              >
-                {item.name}
-              </Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>
-                Tipo: {item.type}, Socket: {item.socket}, Slots:{" "}
-                {item.memory_slots}
-              </Text>
-              <Text style={styles.description}>{item.text}</Text>
-              <Text style={styles.description}>{item["text-2"]}</Text>
-            </View>
-          </View>
+          <Link href={`/${item.id}`} asChild>
+            <Pressable>
+              <View style={styles.item}>
+                <Image
+                  source={{ uri: item.thumbnail }}
+                  style={[styles.thumbnail]}
+                  resizeMode="contain"
+                />
+                <View style={styles.details}>
+                  <Text
+                    style={[
+                      styles.name,
+                      { color: isDarkMode ? "#ffffff" : "#212121" },
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                  <Text style={styles.specs}>
+                    Tipo: {item.type}, Socket: {item.socket}, Slots:{" "}
+                    {item.memory_slots}
+                  </Text>
+                  <Text style={styles.description}>{item.text}</Text>
+                  <Text style={styles.description}>{item["text-2"]}</Text>
+                </View>
+              </View>
+            </Pressable>
+          </Link>
         )}
       />
     </View>

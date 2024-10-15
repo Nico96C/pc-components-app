@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Link, Stack } from "expo-router";
-import { Text, StyleSheet, View, FlatList, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import peripheralData from "../mocks/Peripherals.json";
 import { useTheme } from "../context/darkmode";
 
@@ -31,28 +38,32 @@ export default function Peripheral() {
         data={perifericos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={[styles.thumbnail]}
-              resizeMode="contain"
-            />
-            <View style={styles.details}>
-              <Text
-                style={[
-                  styles.name,
-                  { color: isDarkMode ? "#ffffff" : "#212121" },
-                ]}
-              >
-                {item.name}
-              </Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>
-                Tipo: {item.type}, Formato: {item.form}, Microfono:{" "}
-                {item.microphone ? "Sí" : "No"}
-              </Text>
-            </View>
-          </View>
+          <Link href={`/${item.id}`} asChild>
+            <Pressable>
+              <View style={styles.item}>
+                <Image
+                  source={{ uri: item.thumbnail }}
+                  style={[styles.thumbnail]}
+                  resizeMode="contain"
+                />
+                <View style={styles.details}>
+                  <Text
+                    style={[
+                      styles.name,
+                      { color: isDarkMode ? "#ffffff" : "#212121" },
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                  <Text style={styles.specs}>
+                    Tipo: {item.type}, Formato: {item.form}, Microfono:{" "}
+                    {item.microphone ? "Sí" : "No"}
+                  </Text>
+                </View>
+              </View>
+            </Pressable>
+          </Link>
         )}
       />
     </View>

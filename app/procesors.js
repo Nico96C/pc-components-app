@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Link, Stack } from "expo-router";
-import { Text, StyleSheet, View, FlatList, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import procesorsData from "../mocks/Procesors.json";
 import { useTheme } from "../context/darkmode";
 
@@ -31,27 +38,31 @@ export default function Procesor() {
         data={Procesadores}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image
-              source={{ uri: item.thumbnail }}
-              style={[styles.thumbnail]}
-              resizeMode="contain"
-            />
-            <View style={styles.details}>
-              <Text
-                style={[
-                  styles.name,
-                  { color: isDarkMode ? "#ffffff" : "#212121" },
-                ]}
-              >
-                {item.name}
-              </Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <Text style={styles.specs}>
-                Cores: {item.core_count}, Clock: {item.core_clock} GHz
-              </Text>
-            </View>
-          </View>
+          <Link href={`/${item.id}`} asChild>
+            <Pressable>
+              <View style={styles.item}>
+                <Image
+                  source={{ uri: item.thumbnail }}
+                  style={[styles.thumbnail]}
+                  resizeMode="contain"
+                />
+                <View style={styles.details}>
+                  <Text
+                    style={[
+                      styles.name,
+                      { color: isDarkMode ? "#ffffff" : "#212121" },
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                  <Text style={styles.specs}>
+                    Cores: {item.core_count}, Clock: {item.core_clock} GHz
+                  </Text>
+                </View>
+              </View>
+            </Pressable>
+          </Link>
         )}
       />
     </View>
