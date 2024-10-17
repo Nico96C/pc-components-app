@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Stack } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { ThemeProvider } from "../context/darkmode";
 import { Logo } from "../components/Logo";
 import { useState } from "react";

@@ -181,6 +181,14 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
                       onPress={() => {
                         toggleSidebar();
                       }}
+                      style={({ pressed }) => [
+                        {
+                          opacity: pressed ? 0.6 : 1,
+                          borderBottomWidth: pressed ? 1 : 1,
+                          borderColor: pressed ? "grey" : "transparent",
+                          elevation: pressed ? 5 : 0,
+                        },
+                      ]}
                     >
                       <AnimatedResultItem item={item} index={index} />
                     </Pressable>

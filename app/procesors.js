@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Link, Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import {
   Text,
   StyleSheet,
@@ -14,6 +14,7 @@ import { useTheme } from "../context/darkmode";
 export default function Procesor() {
   const { Procesadores } = procesorsData;
   const { isDarkMode } = useTheme();
+  const navigation = useNavigation();
 
   return (
     <View
@@ -38,8 +39,19 @@ export default function Procesor() {
         data={Procesadores}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <Link href={`/${item.id}`} asChild>
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('[id]', { id: item.id });
+              }}
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.6 : 1,
+                  borderBottomWidth: pressed ? 1 : 1,
+                  borderColor: pressed ? "blue" : "transparent",
+                  elevation: pressed ? 5 : 0,
+                },
+              ]}
+            >
               <View style={styles.item}>
                 <Image
                   source={{ uri: item.thumbnail }}
@@ -62,7 +74,6 @@ export default function Procesor() {
                 </View>
               </View>
             </Pressable>
-          </Link>
         )}
       />
     </View>

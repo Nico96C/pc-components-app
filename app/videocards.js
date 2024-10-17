@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Link, Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import {
   Text,
   StyleSheet,
@@ -14,6 +14,7 @@ import { useTheme } from "../context/darkmode";
 export default function Videocard() {
   const { VideoCards } = videocardsData;
   const { isDarkMode } = useTheme();
+  const navigation = useNavigation();
 
   return (
     <View
@@ -39,8 +40,19 @@ export default function Videocard() {
         data={VideoCards}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <Link href={`/${item.id}`} asChild>
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('[id]', { id: item.id });
+              }}
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.6 : 1,
+                  borderBottomWidth: pressed ? 1 : 1,
+                  borderColor: pressed ? "red" : "transparent",
+                  elevation: pressed ? 5 : 0,
+                },
+              ]}
+            >
               <View style={styles.item}>
                 {/* Imagen principal de la placa de video */}
                 <Image
@@ -71,7 +83,6 @@ export default function Videocard() {
                 </View>
               </View>
             </Pressable>
-          </Link>
         )}
       />
     </View>
