@@ -8,13 +8,26 @@ import {
   Image,
   Pressable,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import Slider from "@react-native-community/slider";
 import procesorsData from "../mocks/Procesors.json";
 import { useTheme } from "../context/darkmode";
+import { useContext } from "react";
+import { FiltersContext } from "../context/FiltersContext";
 
 export default function Procesor() {
   const { Procesadores } = procesorsData;
   const { isDarkMode } = useTheme();
   const navigation = useNavigation();
+  const {
+    filters,
+    handleChangeMinPrice,
+    handleChangeCategory,
+    handleSortChange,
+    filterProducts,
+  } = useContext(FiltersContext);
+
+  const filteredProducts = filterProducts(Procesadores);
 
   return (
     <View
@@ -30,50 +43,72 @@ export default function Procesor() {
           headerRight: () => {},
         }}
       />
-      <Text
-        style={[styles.title, { color: isDarkMode ? "#ffffff" : "#212121" }]}
-      >
-        PROCESADORES
-      </Text>
+      <View style={styles.filters}>
+        <Text style={styles.textColor}>Precio mínimo: ${filters.minPrice}</Text>
+        <Slider
+          value={filters.minPrice}
+          minimumValue={0}
+          maximumValue={2000}
+          onValueChange={handleChangeMinPrice}
+        />
+
+        <Text style={styles.textColor}>Categoría:</Text>
+        <Picker
+          selectedValue={filters.category}
+          onValueChange={handleChangeCategory}
+        >
+          <Picker.Item label="Todas" value="all" />
+          <Picker.Item label="AMD" value="AMD" />
+          <Picker.Item label="INTEL" value="INTEL" />
+        </Picker>
+
+        <Text style={styles.textColor}>Ordenar por precio:</Text>
+        <Picker selectedValue={filters.sort} onValueChange={handleSortChange}>
+          <Picker.Item label="Por defecto" value="default" />
+          <Picker.Item label="Menor a Mayor" value="lowToHigh" />
+          <Picker.Item label="Mayor a Menor" value="highToLow" />
+        </Picker>
+      </View>
+
       <FlatList
-        data={Procesadores}
+        data={filteredProducts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate('[id]', { id: item.id });
-              }}
-              style={({ pressed }) => [
-                {
-                  opacity: pressed ? 0.6 : 1,
-                  borderBottomWidth: pressed ? 1 : 1,
-                  borderColor: pressed ? "blue" : "transparent",
-                  elevation: pressed ? 5 : 0,
-                },
-              ]}
-            >
-              <View style={styles.item}>
-                <Image
-                  source={{ uri: item.thumbnail }}
-                  style={[styles.thumbnail]}
-                  resizeMode="contain"
-                />
-                <View style={styles.details}>
-                  <Text
-                    style={[
-                      styles.name,
-                      { color: isDarkMode ? "#ffffff" : "#212121" },
-                    ]}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-                  <Text style={styles.specs}>
-                    Cores: {item.core_count}, Clock: {item.core_clock} GHz
-                  </Text>
-                </View>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("[id]", { id: item.id });
+            }}
+            style={({ pressed }) => [
+              {
+                opacity: pressed ? 0.6 : 1,
+                borderBottomWidth: pressed ? 1 : 1,
+                borderColor: pressed ? "blue" : "transparent",
+                elevation: pressed ? 5 : 0,
+              },
+            ]}
+          >
+            <View style={styles.item}>
+              <Image
+                source={{ uri: item.thumbnail }}
+                style={[styles.thumbnail]}
+                resizeMode="contain"
+              />
+              <View style={styles.details}>
+                <Text
+                  style={[
+                    styles.name,
+                    { color: isDarkMode ? "#ffffff" : "#212121" },
+                  ]}
+                >
+                  {item.name}
+                </Text>
+                <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                <Text style={styles.specs}>
+                  Cores: {item.core_count}, Clock: {item.core_clock} GHz
+                </Text>
               </View>
-            </Pressable>
+            </View>
+          </Pressable>
         )}
       />
     </View>
@@ -117,10 +152,21 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 14,
-    color: "#4CAF50", // Color verde para el precio
+    color: "#4CAF50",
   },
   specs: {
     fontSize: 12,
-    color: "#777", // Color gris para las especificaciones
+    color: "#777",
   },
+  filters: {
+    backgroundColor: "#713abe",
+    padding: 15,
+    marginBottom: 5,
+    borderRadius: 20,
+  },
+  textColor: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  }
 });

@@ -7,6 +7,7 @@ import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import { ModalProvider } from "../context/modalContext";
 import { SettingIcon } from "../components/Icons";
+import { FiltersProvider } from "../context/FiltersContext";
 
 export default function Layout() {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -19,23 +20,28 @@ export default function Layout() {
     <View style={styles.vista}>
       <ThemeProvider>
         <ModalProvider>
-          <Stack
-            screenOptions={{
-              headerStyle: { backgroundColor: "#713abe" },
-              headerTintColor: "white",
-              headerTitle: "",
-              headerLeft: () => <Logo />,
-              headerRight: () => (
-                <Pressable
-                  onPress={toggleSidebar}
-                  style={styles.hamburgerButton}
-                >
-                  <SettingIcon style={styles.hamburgerText}/>
-                </Pressable>
-              ),
-            }}
-          />
-          <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+          <FiltersProvider>
+            <Stack
+              screenOptions={{
+                headerStyle: { backgroundColor: "#713abe" },
+                headerTintColor: "white",
+                headerTitle: "",
+                headerLeft: () => <Logo />,
+                headerRight: () => (
+                  <Pressable
+                    onPress={toggleSidebar}
+                    style={styles.hamburgerButton}
+                  >
+                    <SettingIcon style={styles.hamburgerText} />
+                  </Pressable>
+                ),
+              }}
+            />
+            <Sidebar
+              isVisible={isSidebarVisible}
+              toggleSidebar={toggleSidebar}
+            />
+          </FiltersProvider>
         </ModalProvider>
       </ThemeProvider>
     </View>
