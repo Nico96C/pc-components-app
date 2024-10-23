@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   Modal,
-  ScrollView,
   Text,
   Dimensions,
   Image,
@@ -10,6 +9,7 @@ import {
   StyleSheet,
   Pressable,
   Button,
+  FlatList,
 } from "react-native";
 import { router, useNavigation } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,6 +17,7 @@ import Carousel from "react-native-snap-carousel";
 import { Body } from "./Body";
 import { useTheme } from "../context/darkmode";
 import { useModal } from "../context/modalContext";
+import { CartContext } from "../context/cartContext";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -55,6 +56,7 @@ export function Main() {
   const { isDarkMode } = useTheme();
   const { modalVisible, closeModal } = useModal();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const { cart } = useContext(CartContext);
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
@@ -96,12 +98,17 @@ export function Main() {
   return (
     <>
       <SafeAreaView
-        style={[
-          { flex: 1, backgroundColor: isDarkMode ? "#212121" : "#ffffff" },
-        ]}
-      >
-        <ScrollView
-          contentContainerStyle={{
+  style={[
+    { flex: 1, backgroundColor: isDarkMode ? "#212121" : "#ffffff" },
+  ]}
+>
+  <FlatList
+    data={cart.length > 0 ? cart : []}
+    keyExtractor={(item) => item.id.toString()}
+    ListHeaderComponent={
+      <>
+        <View
+          style={{
             justifyContent: "flex-start",
             alignItems: "center",
             padding: 12,
@@ -150,23 +157,60 @@ export function Main() {
           </View>
 
           <MyCarousel data={dummyData} />
-          <Body isDarkMode={isDarkMode} />
 
-          <Modal
-            visible={modalVisible}
-            animationType="slide"
-            transparent={true}
+          <Body />
+        </View>
+      </>
+    }
+
+    ListFooterComponent={
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+          <View
+            style={[
+              styles.container,
+              {
+                backgroundColor: isDarkMode ? "#212121" : "#ffffff",
+              },
+            ]}
           >
-            <View style={styles.modalContainer}>
-              <View style={styles.container}>
-                <Text style={styles.title}>Carrito de Compra</Text>
-                {/* Aquí puedes mostrar los elementos del carrito */}
-                <Button title="Cerrar" onPress={closeModal} />
-              </View>
+            <View style={styles.head}>
+              <Text
+                style={[
+                  styles.title,
+                  {
+                    color: isDarkMode ? "#ffffff" : "#212121",
+                  },
+                ]}
+              >
+                Carrito de Compra
+              </Text>
+              <Button title="Cerrar" onPress={closeModal} />
             </View>
-          </Modal>
-        </ScrollView>
-      </SafeAreaView>
+
+            {cart && cart.length > 0 ? (
+              <FlatList
+                data={cart}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                  <View>
+                    <Text>{item.name}</Text>
+                  </View>
+                )}
+              />
+            ) : (
+              <Text>No hay productos</Text>
+            )}
+          </View>
+        </View>
+      </Modal>
+    }
+  />
+</SafeAreaView>
     </>
   );
 }
@@ -217,7 +261,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "90%",
-    maxWidth: 400,
+    height: "90%",
     padding: 20,
     backgroundColor: "white",
     borderRadius: 10,
@@ -259,5 +303,11 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontWeight: "bold",
+  },
+  head: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: 30,
   },
 });

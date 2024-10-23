@@ -8,6 +8,7 @@ import Sidebar from "../components/sidebar";
 import { ModalProvider } from "../context/modalContext";
 import { SettingIcon } from "../components/Icons";
 import { FiltersProvider } from "../context/FiltersContext";
+import { CartProvider } from "../context/cartContext";
 
 export default function Layout() {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -21,26 +22,28 @@ export default function Layout() {
       <ThemeProvider>
         <ModalProvider>
           <FiltersProvider>
-            <Stack
-              screenOptions={{
-                headerStyle: { backgroundColor: "#713abe" },
-                headerTintColor: "white",
-                headerTitle: "",
-                headerLeft: () => <Logo />,
-                headerRight: () => (
-                  <Pressable
-                    onPress={toggleSidebar}
-                    style={styles.hamburgerButton}
-                  >
-                    <SettingIcon style={styles.hamburgerText} />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Sidebar
-              isVisible={isSidebarVisible}
-              toggleSidebar={toggleSidebar}
-            />
+            <CartProvider>
+              <Stack
+                screenOptions={{
+                  headerStyle: { backgroundColor: "#713abe" },
+                  headerTintColor: "white",
+                  headerTitle: "",
+                  headerLeft: () => <Logo />,
+                  headerRight: () => (
+                    <Pressable
+                      onPress={toggleSidebar}
+                      style={styles.hamburgerButton}
+                    >
+                      <SettingIcon style={styles.hamburgerText} />
+                    </Pressable>
+                  ),
+                }}
+              />
+              <Sidebar
+                isVisible={isSidebarVisible}
+                toggleSidebar={toggleSidebar}
+              />
+            </CartProvider>
           </FiltersProvider>
         </ModalProvider>
       </ThemeProvider>
