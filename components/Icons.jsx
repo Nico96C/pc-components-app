@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export const CircleInfoIcon = (props) => (
   <FontAwesome6 name="circle-info" size={24} color="white" {...props} />
@@ -21,8 +21,20 @@ export const CartIcon = (props) => (
 
 export const SearchIcon = (props) => (
   <FontAwesome name="search" size={24} color="black" {...props} />
-)
+);
 
 export const SettingIcon = (props) => (
   <AntDesign name="setting" size={24} color="black" {...props} />
-)
+);
+
+export const LightMode = (props) => (
+  <FontAwesome6 name="sun" size={24} color="black" {...props} />
+);
+
+export const DarkMode = (props) => (
+  <FontAwesome name="moon-o" size={24} color="black" {...props} />
+);
+
+export const CloseButton = (props) => (
+  <AntDesign name="close" size={30} color="black" {...props} />
+);

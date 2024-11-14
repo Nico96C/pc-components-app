@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useRef, useEffect } from "react";
 import {
+  Keyboard,
   View,
   Text,
   Pressable,
@@ -17,6 +18,7 @@ import ProceJSON from "../mocks/Procesors.json";
 import MotherJSON from "../mocks/Motherboard.json";
 import PeriJSON from "../mocks/Peripherals.json";
 import { Link } from "expo-router";
+import { CloseButton, DarkMode, LightMode } from "./Icons";
 
 const Sidebar = ({ isVisible, toggleSidebar }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
@@ -24,14 +26,32 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const animatedHeight = useRef(new Animated.Value(110)).current;
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+
+    // Cleanup: elimina los listeners cuando el componente se desmonte
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     Animated.timing(animatedHeight, {
-      toValue: isActive ? 670 : 110,
+      toValue: isActive ? 630 : 110,
       duration: 300,
       useNativeDriver: false,
     }).start();
-  }, [isActive]);
+  }, [animatedHeight, isActive]);
 
   const handleSearch = () => {
     if (searchTerm.trim() === "") {
@@ -75,7 +95,7 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [isVisible]);
+  }, [isVisible, slideAnim]);
 
   const AnimatedResultItem = ({ item, index }) => {
     const slideAnim = useRef(new Animated.Value(-50)).current;
@@ -153,9 +173,21 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
           >
             Menú Navegación
           </Text>
-          <Pressable style={styles.button} onPress={toggleDarkMode}>
+          <Pressable
+            style={[
+              styles.button,
+              {
+                backgroundColor: isDarkMode ? "#ffffff" : "#212121",
+              },
+            ]}
+            onPress={toggleDarkMode}
+          >
             <Text style={styles.buttonText}>
-              {isDarkMode ? "Modo Claro" : "Modo Oscuro"}
+              {isDarkMode ? (
+                <LightMode color={"black"} />
+              ) : (
+                <DarkMode color={"white"} />
+              )}
             </Text>
           </Pressable>
         </View>
@@ -199,11 +231,14 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
             )}
           </View>
         </Animated.View>
-
-        <Pressable onPress={toggleSidebar} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Cerrar</Text>
-        </Pressable>
       </View>
+      {!isKeyboardVisible && (
+        <Pressable onPress={toggleSidebar} style={styles.closeButton}>
+          <Text style={styles.closeButtonText}>
+            <CloseButton color={"white"} />
+          </Text>
+        </Pressable>
+      )}
     </Animated.View>
   );
 };
@@ -234,12 +269,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#713abe",
     marginTop: 25,
-    paddingVertical: 5,
-    borderRadius: 10,
-    width: "25%",
+    borderRadius: 50,
+    width: 45,
+    height: 45,
+    justifyContent: "center",
     alignItems: "center",
+    borderWidth: 3,
+    borderColor: "#9d76c1",
   },
   buttonText: {
     color: "white",
@@ -247,13 +284,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   closeButton: {
+    position: "absolute",
+    bottom: 5,
     backgroundColor: "#5b0888",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderRadius: 10,
-    marginTop: 50,
-    width: "70%",
+    borderRadius: 50,
     alignItems: "center",
+    width: 65,
+    height: 65,
+    justifyContent: "center",
   },
   closeButtonText: {
     color: "white",
@@ -322,7 +360,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   flatList: {
-    maxHeight: 550,
+    maxHeight: 525,
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -333,6 +371,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 40,
+    marginTop: 25,
+    marginBottom: 15,
   },
 });
 

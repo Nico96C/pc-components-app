@@ -34,7 +34,7 @@ export default function Layout() {
                       onPress={toggleSidebar}
                       style={styles.hamburgerButton}
                     >
-                      <SettingIcon style={styles.hamburgerText} />
+                      <SettingIcon color={'white'} style={styles.hamburgerText} />
                     </Pressable>
                   ),
                 }}
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
     paddingTop: 7,
     fontSize: 26,
-    color: "black",
     borderWidth: 1,
     borderColor: "#9d76c1",
   },
